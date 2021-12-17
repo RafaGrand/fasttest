@@ -21,14 +21,17 @@ var req = https.request(options, function (res) {
   res.on("end", function (chunk) {
     var body = Buffer.concat(chunks);
     let productArr = JSON.parse(body.toString());
-    //console.log(productArr.products);
     let products = (productArr.products);
-    //console.log(products);
-    let createdAt = [];
-    for(var cont=0; cont< products.length; cont++){
-        createdAt.push((products[cont]['created_at']).substring(0, 10));
+    var newArr = [];
+    for (var cont=0; cont< products.length; cont++) {
+        newArr.push({
+            title: products[cont]['title'],
+            price: products[cont]['variants'][0]['price'],
+            status: products[cont]['status'],
+            created_at: ((products[cont]['created_at']).substring(0, 10))
+        });
     }
-    console.log(createdAt);
+    console.log(newArr);
   });
 
   res.on("error", function (error) {

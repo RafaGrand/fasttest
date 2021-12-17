@@ -22,14 +22,19 @@ var req = https.request(options, function (res) {
     var body = Buffer.concat(chunks);
     let productArr = JSON.parse(body.toString());
     let products = (productArr.products);
-    var newArr = [];
+    var newArr = {};
     for (var cont=0; cont< products.length; cont++) {
-        newArr.push({
-            title: products[cont]['title'],
-            price: products[cont]['variants'][0]['price'],
-            status: products[cont]['status'],
-            created_at: ((products[cont]['created_at']).substring(0, 10))
-        });
+        // newArr.push({
+        //     title: products[cont]['title'],
+        //     price: products[cont]['variants'][0]['price'],
+        //     status: products[cont]['status'],
+        //     created_at: ((products[cont]['created_at']).substring(0, 10))
+        // });
+        var title = products[cont]['title'];
+        newArr[title] = {};
+        newArr[title]['price'] = products[cont]['variants'][0]['price'];
+        newArr[title]['status'] = products[cont]['status'];
+        newArr[title]['created_at'] = ((products[cont]['created_at']).substring(0, 10));
     }
     console.log(newArr);
   });

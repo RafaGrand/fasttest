@@ -1,12 +1,16 @@
 var https = require('follow-redirects').https;
 var fs = require('fs');
-
+var apiKey = 'd156c699edcc98186dae8e6f9562d838';
+var pass   = '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';
+let data = apiKey + ":" + pass;
+let buff = new Buffer.from(data);
+let hash = buff.toString('base64');
 var options = {
   'method': 'GET',
   'hostname': 'devtestrecruitte.myshopify.com',
   'path': '/admin/api/2021-10/products.json',
   'headers': {
-    'Authorization': 'Basic ZDE1NmM2OTllZGNjOTgxODZkYWU4ZTZmOTU2MmQ4Mzg6c2hwcGFfM2FiNjA3OTdiMzQyNjIzNjIwOTc2M2ZjNjk5YWQ5OTI='
+    'Authorization': 'Basic '+hash
   },
   'maxRedirects': 20
 };
